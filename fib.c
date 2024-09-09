@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
 
     // Resolve the -1 indexing by substracing value
     if (type == 'r') {
-        printf("%d\n", fibRecursive(N - 1)); // Recursive call
+        printf("%ld\n", fibRecursive(N - 1)); // Recursive call
     }
     else if(type == 'i') {
-        printf("%d\n", fibIterative(N - 1)); // Iterative call
+        printf("%ld\n", fibIterative(N - 1)); // Iterative call
     }
   return 0;
 }
