@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 long fibRecursive(long num);
 long fibIterative(long num);
 
 int main(int argc, char* argv[]) {
     // Set argument as variables
-    clock_t start = clock();
     int integer = atoi(argv[1]);
     char type = argv[2][0];
     char* filename = argv[3];
@@ -27,10 +25,6 @@ int main(int argc, char* argv[]) {
     else if(type == 'i') {
         printf("%d\n", fibIterative(N - 1)); // Iterative call
     }
-  
-  clock_t total = clock() - start;
-  double time = ((double)total)/CLOCKS_PER_SEC;
-  // printf("%f\n", time); Prints runtime in seconds
   return 0;
 }
 
