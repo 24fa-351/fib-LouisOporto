@@ -1,8 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-long fibRecursive(long num);
-long fibIterative(long num);
+# define NUM 1000 //set array size to 1000
+long long array[NUM];
+const int NIL = -1;
+
+void initMem() {
+  for(long iter = 0; iter < NUM; iter++) {
+    array[iter] = NIL;
+  }
+}
+
+unsigned long long fibRecursive(unsigned long long num);
+unsigned long long fibRecursiveMem(unsigned long long num);
+
+unsigned long long fibIterative(unsigned long long num);
+unsigned long long fibIterativeMem(unsigned long long num);
 
 int main(int argc, char* argv[]) {
     // Set argument as variables
@@ -16,33 +29,50 @@ int main(int argc, char* argv[]) {
     fgets(content, 100, fileTxt);
 
     int number2 = atoi(content);
-    long N = number2 + integer;
+    unsigned long long N = number2 + integer;
+    initMem();
 
     // Resolve the -1 indexing by substracing value
     if (type == 'r') {
-        printf("%ld\n", fibRecursive(N - 1)); // Recursive call
+        printf("%llu\n", fibRecursive(N - 1)); // Recursive call
     }
     else if(type == 'i') {
-        printf("%ld\n", fibIterative(N - 1)); // Iterative call
+        printf("%llu\n", fibIterative(N - 1)); // Iterative call
     }
   return 0;
 }
 
-long fibRecursive(long num) {
+unsigned long long fibRecursiveMem(unsigned long long num) {
+  if(array[num] == NIL) {
+    if(num <= 1) {
+      array[num] = num; 
+    } else {
+      array[num] = fibRecursiveMem(num - 1) + fibRecursiveMem(num - 2);
+    }
+  }
+  return array[num];
+}
+
+unsigned long long fibRecursive(unsigned long long num) {
+    
     if (num <= 1) return num;
     else return fibRecursive(num - 2) + fibRecursive(num - 1);
 }
 
-long fibIterative(long num) {
-    long prevPrevNumber = 0;
-    long prevNumber = 1;
-    long summation;
+unsigned long long fibIterative(unsigned long long num) {
+    unsigned long long prevPrevNumber = 0;
+    unsigned long long prevNumber = 1;
+    unsigned long long summation;
     
-    for(int iter = 0; iter < num - 1; iter++) {
+    if(num <= 1) {
+      return num;
+    }
+    for(unsigned long long iter = 1; iter < num ; iter++) {
         summation = prevNumber + prevPrevNumber;
         prevPrevNumber = prevNumber;
         prevNumber = summation;
     }
     
-    return summation;
+    return prevNumber;
 }
+// TODO make fibIterativeMem() and fibRecursiveMem()
