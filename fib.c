@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
 
     // Resolve the -1 indexing by substracing value
     if (type == 'r') {
-        printf("%llu\n", fibRecursive(N - 1)); // Recursive call
+        printf("%llu\n", fibRecursiveMem(N - 1)); // Recursive call
     }
     else if(type == 'i') {
         printf("%llu\n", fibIterative(N - 1)); // Iterative call
