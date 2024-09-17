@@ -6,9 +6,9 @@ long long array[NUM];
 const int NIL = -1;
 
 void initMem() {
-  for(long iter = 0; iter < NUM; iter++) {
-    array[iter] = NIL;
-  }
+    for(long iter = 0; iter < NUM; iter++) {
+        array[iter] = NIL;
+    }
 }
 
 unsigned long long fibRecursive(unsigned long long num);
@@ -37,24 +37,20 @@ int main(int argc, char* argv[]) {
         printf("%llu\n", fibRecursiveMem(N - 1)); // Recursive call
     }
     else if(type == 'i') {
-        printf("%llu\n", fibIterative(N - 1)); // Iterative call
+        printf("%llu\n", fibIterativeMem(N - 1)); // Iterative call
     }
   return 0;
 }
 
 unsigned long long fibRecursiveMem(unsigned long long num) {
-  if(array[num] == NIL) {
-    if(num <= 1) {
-      array[num] = num; 
-    } else {
-      array[num] = fibRecursiveMem(num - 1) + fibRecursiveMem(num - 2);
+    if(array[num] == NIL) {
+        if(num <= 1) array[num] = num; 
+        else array[num] = fibRecursiveMem(num - 1) + fibRecursiveMem(num - 2);
     }
-  }
-  return array[num];
+    return array[num];
 }
 
 unsigned long long fibRecursive(unsigned long long num) {
-    
     if (num <= 1) return num;
     else return fibRecursive(num - 2) + fibRecursive(num - 1);
 }
@@ -67,7 +63,7 @@ unsigned long long fibIterative(unsigned long long num) {
     if(num <= 1) {
       return num;
     }
-    for(unsigned long long iter = 1; iter < num ; iter++) {
+    for(unsigned long long iter = 2; iter <= num ; iter++) {
         summation = prevNumber + prevPrevNumber;
         prevPrevNumber = prevNumber;
         prevNumber = summation;
@@ -75,4 +71,16 @@ unsigned long long fibIterative(unsigned long long num) {
     
     return prevNumber;
 }
-// TODO make fibIterativeMem() and fibRecursiveMem()
+
+unsigned long long fibIterativeMem(unsigned long long num) {
+    unsigned long long prevPrevNumber;
+    unsigned long long prevNumber;
+    array[0] = 0, array[1] = 1;
+
+    for(unsigned long long iter = 2; iter <= num; iter++) {
+      prevPrevNumber = array[iter - 2];
+      prevNumber = array[iter - 1];
+      array[iter] = prevNumber + prevPrevNumber;
+    }
+    return array[num];
+}
