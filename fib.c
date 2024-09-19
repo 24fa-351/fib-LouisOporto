@@ -1,15 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// New Version
-unsigned long long* memo;
-
-// Removed old fibRecursive and fibIterative functions.
-unsigned long long fibRecursive(unsigned long long num);
-unsigned long long fibRecursiveWrapper(int num);
-
-unsigned long long fibIterative(unsigned long long num);
-unsigned long long fibIterativeWrapper(int num);
+long fibRecursive(long num);
+long fibIterative(long num);
 
 int main(int argc, char* argv[]) {
     // Set argument as variables
@@ -17,74 +10,39 @@ int main(int argc, char* argv[]) {
     char type = argv[2][0];
     char* filename = argv[3];
 
-    
+
     FILE *fileTxt = fopen(filename, "r");
     char content[100];
     fgets(content, 100, fileTxt);
 
     int number2 = atoi(content);
-    int N = number2 + integer;
+    long N = number2 + integer;
 
     // Resolve the -1 indexing by substracing value
     if (type == 'r') {
-        printf("%llu\n", fibRecursiveWrapper(N - 1)); // Recursive call
+        printf("%d\n", fibRecursive(N - 1)); // Recursive call
     }
     else if(type == 'i') {
-        printf("%llu\n", fibIterativeWrapper(N - 1)); // Iterative call
+        printf("%d\n", fibIterative(N - 1)); // Iterative call
     }
   return 0;
 }
 
-unsigned long long fibRecursive(unsigned long long num) {
+long fibRecursive(long num) {
     if (num <= 1) return num;
-
-    // Check if result is already computed
-    if (memo[num] != -1) return memo[num];
-
-    // Compute fib value and store in memo
-    memo[num] = fibRecursive(num - 1) + fibRecursive(num - 2);
-
-    return memo[num];
+    else return fibRecursive(num - 2) + fibRecursive(num - 1);
 }
 
-unsigned long long fibRecursiveWrapper(int num) {
-    // Allocate memory for memoization
-    memo = (unsigned long long*)malloc((num + 1) * sizeof(unsigned long long));
+long fibIterative(long num) {
+    long prevPrevNumber = 0;
+    long prevNumber = 1;
+    long summation;
 
-    for (int i = 0; i <= num; i++) {
-      memo[i] = -1;
+    for(int iter = 0; iter < num - 1; iter++) {
+        summation = prevNumber + prevPrevNumber;
+        prevPrevNumber = prevNumber;
+        prevNumber = summation;
     }
 
-    unsigned long long result = fibRecursive(num);
-
-    free(memo);
-
-    return result;
-}
-
-unsigned long long fibIterative(unsigned long long num) {
-    unsigned long long prevPrevNumber;
-    unsigned long long prevNumber;
-    memo[0] = 0, memo[1] = 1;
-
-    for(unsigned long long iter = 2; iter <= num; iter++) {
-      prevPrevNumber = memo[iter - 2];
-      prevNumber = memo[iter - 1];
-      memo[iter] = prevNumber + prevPrevNumber;
-    }
-    return memo[num];
-}
-
-unsigned long long fibIterativeWrapper(int num) {
-  memo = (unsigned long long*)malloc((num + 1) * sizeof(unsigned long long));
-
-  for(int i = 0; i <= num; i++) {
-    memo[i] = -1;
-  }
-
-  unsigned long long result = fibIterative(num);
-
-  free(memo);
-
-  return result;
+    return summation;
 }
