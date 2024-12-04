@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 long fibRecursive(long num);
 long fibIterative(long num);
 
 int main(int argc, char* argv[]) {
     // Set argument as variables
+
+    if (argc != 4 || !(strcmp(argv[2], "r") == 0 || strcmp(argv[2], "i") == 0)) {
+        printf("Usage: ./fib <integer> <type> <filename>\n");
+        return 1;
+    }
     int integer = atoi(argv[1]);
     char type = argv[2][0];
     char* filename = argv[3];
