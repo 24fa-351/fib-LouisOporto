@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     char type = argv[2][0];
     char* filename = argv[3];
 
-    
+
     FILE *fileTxt = fopen(filename, "r");
     char content[100];
     fgets(content, 100, fileTxt);
@@ -26,10 +26,10 @@ int main(int argc, char* argv[]) {
 
     // Resolve the -1 indexing by substracing value
     if (type == 'r') {
-        printf("%ld\n", fibRecursive(N - 1)); // Recursive call
+        printf("%d\n", fibRecursive(N - 1)); // Recursive call
     }
     else if(type == 'i') {
-        printf("%ld\n", fibIterative(N - 1)); // Iterative call
+        printf("%d\n", fibIterative(N - 1)); // Iterative call
     }
   return 0;
 }
@@ -43,12 +43,12 @@ long fibIterative(long num) {
     long prevPrevNumber = 0;
     long prevNumber = 1;
     long summation;
-    
+
     for(int iter = 0; iter < num - 1; iter++) {
         summation = prevNumber + prevPrevNumber;
         prevPrevNumber = prevNumber;
         prevNumber = summation;
     }
-    
+
     return summation;
 }
